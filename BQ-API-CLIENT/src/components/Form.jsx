@@ -1,3 +1,4 @@
+import { login } from "./buttonlogin.js"
 import "./Form.css"
 import { useState } from "react"
 export function Form({setUser}) {
@@ -12,12 +13,27 @@ export function Form({setUser}) {
             setError(true)
             return
         }
-
+        
+        login(correo, contraseña)
+        .then((res) => {
+            console.log(res)
         setError(false)
         
-        setUser([correo])
+        setUser({ 
+            token: res.accessToken,
+            user: res.user,
+            })
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        
+
     }
-    
+
+    function handleClick() {
+        
+    }
     return (
         <section>
             <h1>Login</h1>
@@ -26,7 +42,7 @@ export function Form({setUser}) {
                 onSubmit={handleSubmit}
             >
                 <input 
-                type="text"
+                type="email"
                 value={correo}
                 onChange= {e => setCorreo(e.target.value)}
                 />
@@ -35,9 +51,11 @@ export function Form({setUser}) {
                 onChange= {e => setContraseña(e.target.value)}
                 />
 
-                <button>Iniciar sesión</button>
+                <button onClick={handleClick}>Iniciar sesión</button>
             </form>
             {error && <p>ERROR: Revisa tu correo o contraseña</p>}
         </section>
     )
 }
+
+// funcion fetch que se llama en el onclick de iniciar sesión. 

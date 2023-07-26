@@ -1,12 +1,11 @@
 export function Home({user, setUser}) {
-
+console.log(user)
     const handleLogout=()=>{
-        setUser([])
+        setUser(null)
     }
     return(
         <div>
             <h1>Bienvenido</h1>
-            <h2>{user}</h2>
             <button onClick={handleLogout}>Cerrar Sesion</button>
         </div>
     )

@@ -5,15 +5,15 @@ import './App.css'
 
 function App() {
 
-  const [user, setUser]=useState([])
+  const [user, setUser]=useState(null)
   
 
   return (
     <div className='app'>
       {
-        !user.length > 0
+        user === null
         ?<Form setUser= {setUser}/>
-        :<Home setUser= {setUser}/>
+        :<Home setUser= {setUser} user = {user} />
       }
       
 
