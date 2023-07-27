@@ -1,9 +1,9 @@
-import { login } from "./buttonlogin.js"
+import { login } from "./Loginfunction.js"
 import "./Form.css"
 import { useState } from "react"
 export function Form({setUser}) {
-    const [correo, setCorreo] = useState("")
-    const [contraseña, setContraseña] = useState("")
+    const [correo, setCorreo] = useState("grace.hopper@systers.xyz")
+    const [contraseña, setContraseña] = useState("123456")
     const [error, setError] = useState(false)
 
     const handleSubmit = (e) => {
@@ -16,7 +16,6 @@ export function Form({setUser}) {
         
         login(correo, contraseña)
         .then((res) => {
-            console.log(res)
         setError(false)
         
         setUser({ 
@@ -31,9 +30,6 @@ export function Form({setUser}) {
 
     }
 
-    function handleClick() {
-        
-    }
     return (
         <section>
             <h1>Login</h1>
@@ -51,7 +47,7 @@ export function Form({setUser}) {
                 onChange= {e => setContraseña(e.target.value)}
                 />
 
-                <button onClick={handleClick}>Iniciar sesión</button>
+                <button>Iniciar sesión</button>
             </form>
             {error && <p>ERROR: Revisa tu correo o contraseña</p>}
         </section>
