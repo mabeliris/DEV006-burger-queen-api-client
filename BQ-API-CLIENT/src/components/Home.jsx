@@ -5,7 +5,7 @@ console.log(user)
     }
     return(
         <div>
-            <h1>Bienvenido</h1>
+            
             <button onClick={handleLogout}>Cerrar Sesion</button>
         </div>
     )
