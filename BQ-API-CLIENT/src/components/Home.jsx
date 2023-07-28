@@ -26,6 +26,7 @@ export function Home({ user, setUser }) {
 
     return (
         <div>
+            <img src={logo} alt="Logo"/>
             <button> DESAYUNO </button>
             <button> ALMUERZO Y CENA</button>
             {Object.keys(products).map((key) => (
