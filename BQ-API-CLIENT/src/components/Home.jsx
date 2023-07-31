@@ -26,13 +26,13 @@ export function Home({ user, setUser }) {
 
     return (
         <div>
-            <img src={logo} alt="Logo"/>
+             
             <button> DESAYUNO </button>
             <button> ALMUERZO Y CENA</button>
             {Object.keys(products).map((key) => (
                 <li key={key}>{products[key].name} ${products[key].price} </li>
             ))}
-            <input type="text" placeholder="NOMBRE" />
+            <input type="text" placeholder="Nombre del cliente" />
             <section> 
                 <h3> la orden va a acá</h3>
             </section>

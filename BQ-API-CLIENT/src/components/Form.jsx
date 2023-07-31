@@ -32,6 +32,7 @@ export function Form({setUser}) {
 
     return (
         <section>
+            <img src="components/img/BQ-LOGO.png" alt="BQ-logo" className="logo" />
             <h1>Login</h1>
             <form 
                 className= "formLogin"
