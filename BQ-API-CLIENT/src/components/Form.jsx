@@ -1,6 +1,10 @@
-import { login } from "./Loginfunction.js"
-import "./Form.css"
-import { useState } from "react"
+import React from "react";
+import { login } from "./Loginfunction.js";
+import "./Form.css";
+import { useState } from "react";
+import bqlogo from '../assets/img/bqlogo.png'
+
+
 export function Form({setUser}) {
     const [correo, setCorreo] = useState("grace.hopper@systers.xyz")
     const [contraseña, setContraseña] = useState("123456")
@@ -32,7 +36,7 @@ export function Form({setUser}) {
 
     return (
         <section>
-            <img src="components/img/BQ-LOGO.png" alt="BQ-logo" className="logo" />
+            <img src={bqlogo} alt="BQ-logo" className="logo" />
             <h1>Login</h1>
             <form 
                 className= "formLogin"
