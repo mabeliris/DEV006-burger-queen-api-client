@@ -1,7 +1,8 @@
 import { getProducts } from "./functions.js"
 import { useState, useEffect, useContext } from 'react';
 import { filterByProduct } from "./functions.js";
-import { addProduct } from "./Cart.jsx";
+import { AddProduct } from "./Cart.jsx";
+import { CartProvider } from "./CartContext.jsx";
 
 // useState: guardar una variable que puede cambiar de valor.
 // useEffect: controlar cuando se ejecutan algun efecto secundario
@@ -44,13 +45,16 @@ return (
             <button onClick={handleFilterDesayuno}> DESAYUNO </button> 
             <button onClick={handleFilter}> ALMUERZO Y CENA</button>
             {filteredProducts.map((product) => ( 
-                <button onClick={addProduct} key={product.id}>{product.name} ${product.price} </button>
+                <button onClick={AddProduct} key={product.id}>{product.name} ${product.price} </button>
             ))}
             <input type="text" placeholder="Nombre del cliente" />
             <section>
+                <CartProvider>
                 <h3> la orden va a acá</h3>
+                </CartProvider>
             </section>
             <button onClick={handleLogout}>Cerrar Sesión</button>
         </div>
     );
 }
+
