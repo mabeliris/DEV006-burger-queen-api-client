@@ -1,7 +1,7 @@
 import React from "react";
-import { login } from "./Loginfunction.js";
+import { login } from "./functions.js";
 import "./Form.css";
-import { useState } from "react";
+import { useState }  from "react";
 import bqlogo from '../assets/img/bqlogo.png'
 
 
@@ -31,7 +31,6 @@ export function Form({setUser}) {
             console.log(err)
         })
         
-
     }
 
     return (
@@ -58,5 +57,3 @@ export function Form({setUser}) {
         </section>
     )
 }
-
-// funcion fetch que se llama en el onclick de iniciar sesión. 
