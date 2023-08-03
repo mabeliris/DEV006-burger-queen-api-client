@@ -1,8 +1,7 @@
-import { getProducts } from "./functions.js"
-import { useState, useEffect, useContext } from 'react';
+import { getProducts} from "./functions.js"
+import { useState, useEffect} from 'react';
 import { filterByProduct } from "./functions.js";
-import { AddProduct } from "./Cart.jsx";
-import { CartProvider } from "./CartContext.jsx";
+
 
 // useState: guardar una variable que puede cambiar de valor.
 // useEffect: controlar cuando se ejecutan algun efecto secundario
@@ -12,6 +11,10 @@ export function Home({ user, setUser }) {
     const [products, setProducts] = useState([])
 
      const [ filterType, setFilterType ] = useState("Desayuno");
+
+     const [ selectedProducts, setSelectedProducts ] = useState([]);
+
+      
 
     const handleFilterDesayuno = () => {
         setFilterType("Desayuno")
@@ -39,22 +42,44 @@ export function Home({ user, setUser }) {
 
 const filteredProducts = filterByProduct(products, filterType);
 
+const addProducts = (productToAdd) => {
+  
+  
+   setSelectedProducts([...selectedProducts, productToAdd]);
+  
+};
+ console.log(addProducts)
+
+
+
 return (
         <div>
 
             <button onClick={handleFilterDesayuno}> DESAYUNO </button> 
             <button onClick={handleFilter}> ALMUERZO Y CENA</button>
+            
             {filteredProducts.map((product) => ( 
-                <button onClick={AddProduct} key={product.id}>{product.name} ${product.price} </button>
+                
+                  <button onClick={() => addProducts({name:product.name, price:product.price})} key={product.id}>
+                     
+                    {product.name} ${product.price}
+                  </button>
+                 
             ))}
+            
+            
             <input type="text" placeholder="Nombre del cliente" />
             <section>
-                <CartProvider>
+                
                 <h3> la orden va a acá</h3>
-                </CartProvider>
+                {selectedProducts.map((product, index) => (
+                 <div key={index}>
+                    {product.name} ${product.price}
+                 </div>
+                ))}
+                
             </section>
             <button onClick={handleLogout}>Cerrar Sesión</button>
         </div>
     );
 }
-
