@@ -36,14 +36,32 @@ export function filter(data, condition) {
     })
 }
 
-export async function createOrder(selectedProducts ,getTotalPrice) {
-    const { data } = await axios.post('http://localhost:8080/order', {
-    
-    selectedProducts,
-    getTotalPrice,
+export async function createOrderApi(orderId, client, selectedProducts, status, dateEntry, dateProcessed, token) {
+    const response = await axios.post('http://localhost:8080/orders', {
+        orderId,
+        client,
+        selectedProducts,
+        status, 
+        dateEntry,
+        dateProcessed,
+    }, {
+        headers: {
+            Authorization: "Bearer " + token
+        }
     });
-    return data;
-};
+    console.log("ESTE ES EL TOKEN", token);
+    return response.data;
+}
 
 
 
+
+/*id	integer($int64)
+Id
+
+client	[...]
+products	[...]
+status	[...]
+dateEntry	[...]
+dateProcessed	[...]
+*/

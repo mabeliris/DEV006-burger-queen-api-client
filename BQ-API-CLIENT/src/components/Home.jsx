@@ -1,6 +1,5 @@
-import { getProducts } from "./functions.js";
-import { useState, useEffect } from 'react';
-import { filterByProduct } from "./functions.js";
+import { getProducts, filterByProduct, createOrderApi } from "./functions.js";
+import { useState, useEffect, useId} from 'react';
 
 export function Home({ user, setUser }) {
 
@@ -9,6 +8,10 @@ export function Home({ user, setUser }) {
     const [filterType, setFilterType] = useState("Desayuno");
 
     const [selectedProducts, setSelectedProducts] = useState([]);
+
+    const [client, setClient] = useState("");
+
+    const [order, setOrder] = useState({});
 
     const handleFilterDesayuno = () => {
         setFilterType("Desayuno");
@@ -26,9 +29,39 @@ export function Home({ user, setUser }) {
             .catch(console.error);
     }
 
+    function createClient(event) {
+        const { value } = event.target;
+        setClient(value);
+        console.log(value);
+    }
+
+    function handleCreateOrder() {
+        const orderData = {
+            client: client,
+            selectedProducts: selectedProducts,
+        };
+    
+        console.log(orderData);
+    
+        createOrderApi(null, client, selectedProducts, user.token)
+            .then((data) => {
+                setOrder(data);
+                console.log(order);
+            })
+            .catch((error) => {
+                console.error("Error creating order:", error);
+            });
+    }
+
     function deleteProduct(index) {
         const updatedProducts = [...selectedProducts];
         updatedProducts.splice(index, 1);
+        setSelectedProducts(updatedProducts);
+    }
+
+    function deleteOrder(index) {
+        const updatedProducts = [...selectedProducts];
+        updatedProducts.splice(index, 100);
         setSelectedProducts(updatedProducts);
     }
 
@@ -68,7 +101,7 @@ export function Home({ user, setUser }) {
             ))}
 
             <br></br>
-            <input type="text" placeholder="Nombre del cliente" />
+            <input type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
             <section>
                 <h3> ORDEN </h3>
                 {selectedProducts.map((product, index) => (
@@ -77,8 +110,8 @@ export function Home({ user, setUser }) {
                     </div>
                 ))}
                 <h4>Total: ${getTotalPrice()}</h4>
-                <button>ELIMINAR</button>
-                <button>ENVIAR</button>
+                <button onClick={deleteOrder}>ELIMINAR</button>
+                <button onClick={handleCreateOrder}>ENVIAR</button>
             </section>
         </div>
     );
