@@ -5,7 +5,6 @@ export async function login(email, password) {
         email,
         password
     });
-    console.log(data)
     return data;
 };
 
@@ -16,7 +15,6 @@ export async function getProducts(token) {
         }
     });
     const products = response.data;
-    console.log(products)
     return products;
 };
 
@@ -38,6 +36,14 @@ export function filter(data, condition) {
     })
 }
 
+export async function createOrder(selectedProducts ,getTotalPrice) {
+    const { data } = await axios.post('http://localhost:8080/order', {
+    
+    selectedProducts,
+    getTotalPrice,
+    });
+    return data;
+};
 
 
 
