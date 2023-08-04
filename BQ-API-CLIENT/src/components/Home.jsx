@@ -1,6 +1,7 @@
 import { getProducts} from "./functions.js"
 import { useState, useEffect} from 'react';
 import { filterByProduct } from "./functions.js";
+import "./Home.css"
 
 
 // useState: guardar una variable que puede cambiar de valor.
@@ -53,14 +54,14 @@ const addProducts = (productToAdd) => {
 
 
 return (
-        <div>
+        <div className="home">
 
-            <button onClick={handleFilterDesayuno}> DESAYUNO </button> 
-            <button onClick={handleFilter}> ALMUERZO Y CENA</button>
+            <button className="btnHome"  onClick={handleFilterDesayuno}> DESAYUNO </button> 
+            <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
             
             {filteredProducts.map((product) => ( 
                 
-                  <button onClick={() => addProducts({name:product.name, price:product.price})} key={product.id}>
+                  <button className="btnOrder" onClick={() => addProducts({name:product.name, price:product.price})} key={product.id}>
                      
                     {product.name} ${product.price}
                   </button>
@@ -79,7 +80,7 @@ return (
                 ))}
                 
             </section>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
+            <button className="log-in-out" onClick={handleLogout}>Cerrar Sesión</button>
         </div>
     );
 }
