@@ -6,7 +6,7 @@ import "./Home.css"
 // useEffect: controlar cuando se ejecutan algun efecto secundario
 
 import { getProducts, filterByProduct, createOrderApi } from "./functions.js";
-import { useState, useEffect, useId} from 'react';
+import { useState, useEffect } from 'react';
 
 
 export function Home({ user, setUser }) {
@@ -93,11 +93,11 @@ export function Home({ user, setUser }) {
         
 
     return (
-        <div>
-            <button>Admin</button>
-            <button>Meserx</button>
-            <button>Chef</button>
-            <button  onClick={handleLogout}  ><img src={"../src/assets/img/logout.png"} alt="delete" /></button>
+        <div className="homeDiv">
+            <button className="routeBtn">ADMIN</button>
+            <button className="routeBtn">MESERX</button>
+            <button className="routeBtn">CHEF</button>
+            <button  onClick={handleLogout}  ><img className="logoutBtn" src={"../src/assets/img/logout.png"} alt="delete" /></button>
             <br></br>
             <button className="btnHome" onClick={handleFilterDesayuno}> DESAYUNO </button>
             <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
@@ -119,13 +119,13 @@ export function Home({ user, setUser }) {
 
                 <h3> ORDEN </h3>
                 {selectedProducts.map((product, index) => (
-                    <div key={index}>
-                        {product.name} ${product.price} <button onClick={() => deleteProduct(index)}><img src={"../src/assets/img/trashcan.png"} alt="delete" /></button>
+                    <div className="productOrder" key={index}>
+                        {product.name} ${product.price} <button className="deleteProductBtn" onClick={() => deleteProduct(index)}><img style={{ width: 20, height: 20 }} src={"../src/assets/img/trashcan.png"} alt="delete" /></button>
                     </div>
                 ))}
-                <h4>Total: ${getTotalPrice()}</h4>
-                <button onClick={deleteOrder}>ELIMINAR</button>
-                <button onClick={handleCreateOrder}>ENVIAR</button>
+                <h4 className="totalOrder">Total: ${getTotalPrice()}</h4>
+                <button className="deleteOrderBtn" onClick={deleteOrder}>ELIMINAR</button>
+                <button className="sendOrderBtn" onClick={handleCreateOrder}>ENVIAR</button>
             </section>
             
 

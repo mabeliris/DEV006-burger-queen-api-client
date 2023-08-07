@@ -2,17 +2,23 @@
 
 body{
     background-color: #F1F4E2;
-    
-
-
 }
 
+.routeBtn{
+    background-color: #E04D39;
+    color: white;
+    margin: 5px;
+}
+
+.logoutBtn{
+    width: 20px;
+    height: 20px;
+    background-color: #F1F4E2;
+}
 .btnHome{
     color: white;
     background-color: black;
-    margin: 10px;
-    
-       
+    margin: 10px;     
 }
 
 .btnOrder{
@@ -24,6 +30,8 @@ body{
     grid-template-columns: auto;
     width: 300px; 
     margin-left: 50px;   
+    max-height: 400px;
+    overflow-y: auto;
     
     
 }
@@ -31,14 +39,47 @@ body{
 .inputName{
    border: 1px solid black;
    border-radius: 5px;
+   font-size: 20px;
+   margin-bottom: 20px;
+   text-align: center;
+   padding: 10px;
     
 }
 
-
 .sectionOrder {
-    background-color: white;
-    border-radius: 40px;
-    width: 600px;
-    height: auto;
+    background-color: #EDEAD2;
+    color: black;
+    width: 400px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
+.productOrder{
+display: flex;
+justify-content: space-between;
+margin: 0 20px;
+}
+
+.deleteProductBtn{
+    background-color: #EDEAD2;
+}
+.deleteOrderBtn{
+    background-color: #817979;
+    color:white;
+    margin: 20px;
+}
+.sendOrderBtn{
+    background-color: #E04D39;
+    color: white;
+}
+
+.totalOrder {
+   background-color: black;
+   color: white; 
+   width: 150px;
+   margin: 0 200px;
+   border-radius: 5px;
+}

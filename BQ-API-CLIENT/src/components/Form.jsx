@@ -36,7 +36,7 @@ export function Form({setUser}) {
     return (
         <section>
             <div className="imgDivLogo">
-                <img src={bqlogo} alt="BQ-logo" className="logo" />
+                <img style={{ width: 200, height: 200 }} src={bqlogo} alt="BQ-logo" className="logo" />
             </div>
             
             
