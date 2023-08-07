@@ -12,7 +12,7 @@ body{
 .btnHome{
     color: white;
     background-color: black;
-    margin: 10px
+    margin: 10px;
     
        
 }
@@ -25,11 +25,14 @@ body{
     display: grid;
     grid-template-columns: auto;
     width: 300px; 
-    margin-left: 25px;   
+    margin-left: 50px;   
+    
     
 }
 
-.log-in-out{
-    background-color: #E04D39;
-    color:white;
+.inputName{
+   border: 1px solid black;
+   border-radius: 5px;
+    
 }
+
