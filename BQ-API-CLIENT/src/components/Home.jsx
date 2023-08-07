@@ -50,7 +50,7 @@ export function Home({ user, setUser }) {
         };
     
         console.log(orderData);
-    
+    //corregir
         createOrderApi(null, client, selectedProducts, user.token)
             .then((data) => {
                 setOrder(data);
