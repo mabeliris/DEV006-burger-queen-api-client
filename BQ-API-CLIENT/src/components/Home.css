@@ -7,8 +7,6 @@ body{
 
 }
 
-
-
 .btnHome{
     color: white;
     background-color: black;
@@ -29,6 +27,12 @@ body{
     
 }
 
+.sectionOrder {
+    background-color: white;
+    border-radius: 40px;
+    width: 600px;
+    height: auto;
+}
 .log-in-out{
     background-color: #E04D39;
     color:white;
