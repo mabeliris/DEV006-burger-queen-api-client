@@ -97,22 +97,26 @@ export function Home({ user, setUser }) {
             <button>Admin</button>
             <button>Meserx</button>
             <button>Chef</button>
-            <button onClick={handleLogout}><img src={"../src/assets/img/logout.png"} alt="delete" /></button>
+            <button  onClick={handleLogout}  ><img src={"../src/assets/img/logout.png"} alt="delete" /></button>
             <br></br>
-            <button onClick={handleFilterDesayuno}> DESAYUNO </button>
-            <button onClick={handleFilter}> ALMUERZO Y CENA</button>
+            <button className="btnHome" onClick={handleFilterDesayuno}> DESAYUNO </button>
+            <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
             <br></br>
 
             {filteredProducts.map((product) => (
-                <button onClick={() => addProducts({ name: product.name, price: product.price })} key={product.id}>
+                <button className="btnOrder" onClick={() => addProducts({ name: product.name, price: product.price })} key={product.id}>
 
                     {product.name} ${product.price}
                 </button>
             ))}
 
             <br></br>
-            <input type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
+
+           
+
+            <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
             <section className="sectionOrder"> 
+
                 <h3> ORDEN </h3>
                 {selectedProducts.map((product, index) => (
                     <div key={index}>
@@ -123,8 +127,7 @@ export function Home({ user, setUser }) {
                 <button onClick={deleteOrder}>ELIMINAR</button>
                 <button onClick={handleCreateOrder}>ENVIAR</button>
             </section>
-
-            <button className="log-in-out" onClick={handleLogout}>Cerrar Sesión</button>
+            
 
         </div>
     );
