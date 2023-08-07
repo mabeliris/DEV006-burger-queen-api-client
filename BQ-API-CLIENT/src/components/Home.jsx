@@ -1,5 +1,13 @@
+
+import "./Home.css"
+
+
+// useState: guardar una variable que puede cambiar de valor.
+// useEffect: controlar cuando se ejecutan algun efecto secundario
+
 import { getProducts, filterByProduct, createOrderApi } from "./functions.js";
 import { useState, useEffect, useId} from 'react';
+
 
 export function Home({ user, setUser }) {
 
@@ -51,6 +59,7 @@ export function Home({ user, setUser }) {
             .catch((error) => {
                 console.error("Error creating order:", error);
             });
+            
     }
 
     function deleteProduct(index) {
@@ -81,7 +90,9 @@ export function Home({ user, setUser }) {
 
     const getTotalPrice = () => {
         return selectedProducts.reduce((total, product) => total + product.price, 0);
-    };
+
+    }
+        
 
     return (
         <div>
@@ -96,6 +107,7 @@ export function Home({ user, setUser }) {
 
             {filteredProducts.map((product) => (
                 <button onClick={() => addProducts({ name: product.name, price: product.price })} key={product.id}>
+
                     {product.name} ${product.price}
                 </button>
             ))}
@@ -113,6 +125,9 @@ export function Home({ user, setUser }) {
                 <button onClick={deleteOrder}>ELIMINAR</button>
                 <button onClick={handleCreateOrder}>ENVIAR</button>
             </section>
+
+            <button className="log-in-out" onClick={handleLogout}>Cerrar Sesión</button>
+
         </div>
     );
 }

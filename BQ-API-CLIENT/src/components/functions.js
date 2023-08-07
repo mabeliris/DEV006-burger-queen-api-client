@@ -5,6 +5,8 @@ export async function login(email, password) {
         email,
         password
     });
+
+
     return data;
 };
 
@@ -49,7 +51,7 @@ export async function createOrderApi(orderId, client, selectedProducts, status, 
             Authorization: "Bearer " + token
         }
     });
-    console.log("ESTE ES EL TOKEN", token);
+    console.log("ESTE ES EL TOKEN", token)
     return response.data;
 }
 

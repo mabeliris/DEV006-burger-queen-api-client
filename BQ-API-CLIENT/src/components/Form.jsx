@@ -1,6 +1,6 @@
 import React from "react";
 import { login } from "./functions.js";
-import "./Form.css";
+import "./Form.css"
 import { useState }  from "react";
 import bqlogo from '../assets/img/bqlogo.png'
 
@@ -35,23 +35,27 @@ export function Form({setUser}) {
 
     return (
         <section>
-            <img src={bqlogo} alt="BQ-logo" className="logo" />
-            <h1>Login</h1>
+            <div className="imgDivLogo">
+                <img src={bqlogo} alt="BQ-logo" className="logo" />
+            </div>
+            
+            
             <form 
                 className= "formLogin"
                 onSubmit={handleSubmit}
             >
-                <input 
+                <input className="inputEmail"
                 type="email"
                 value={correo}
                 onChange= {e => setCorreo(e.target.value)}
                 />
-                <input type="password"
+                <input className="inputEmail"  type="password"
                 value={contraseña}
                 onChange= {e => setContraseña(e.target.value)}
                 />
 
-                <button>Iniciar sesión</button>
+            
+                <button className="log-in-out" >Iniciar sesión</button>
             </form>
             {error && <p>ERROR: Revisa tu correo o contraseña</p>}
         </section>

@@ -1,0 +1,11 @@
+.log-in-out {
+    background-color: #E04D39;
+    color: white;
+}
+
+.inputEmail{
+    margin: 5px;
+    display: grid;
+    grid-template-columns: auto;
+}
+
