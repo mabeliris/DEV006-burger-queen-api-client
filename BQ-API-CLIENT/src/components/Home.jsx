@@ -59,6 +59,7 @@ export function Home({ user, setUser }) {
             .catch((error) => {
                 console.error("Error creating order:", error);
             });
+            
     }
 
     function deleteProduct(index) {
