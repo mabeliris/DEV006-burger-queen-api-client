@@ -38,14 +38,9 @@ export function filter(data, condition) {
     })
 }
 
-export async function createOrderApi(orderId, client, selectedProducts, status, dateEntry, dateProcessed, token) {
+export async function createOrderApi(orderData, token) {
     const response = await axios.post('http://localhost:8080/orders', {
-        orderId,
-        client,
-        selectedProducts,
-        status, 
-        dateEntry,
-        dateProcessed,
+        orderData,
     }, {
         headers: {
             Authorization: "Bearer " + token

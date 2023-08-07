@@ -16,10 +16,9 @@ export function Home({ user, setUser }) {
     const [filterType, setFilterType] = useState("Desayuno");
 
     const [selectedProducts, setSelectedProducts] = useState([]);
+    const [order, setOrder] = useState([])
 
     const [client, setClient] = useState("");
-
-    const [order, setOrder] = useState({});
 
     const handleFilterDesayuno = () => {
         setFilterType("Desayuno");
@@ -47,14 +46,15 @@ export function Home({ user, setUser }) {
         const orderData = {
             client: client,
             selectedProducts: selectedProducts,
+            status: "pendiente",
         };
     
         console.log(orderData);
-    
-        createOrderApi(null, client, selectedProducts, user.token)
+    //corregir
+        createOrderApi(orderData, user.token)
             .then((data) => {
                 setOrder(data);
-                console.log(order);
+                console.log(orderData);
             })
             .catch((error) => {
                 console.error("Error creating order:", error);
@@ -68,10 +68,8 @@ export function Home({ user, setUser }) {
         setSelectedProducts(updatedProducts);
     }
 
-    function deleteOrder(index) {
-        const updatedProducts = [...selectedProducts];
-        updatedProducts.splice(index, 100);
-        setSelectedProducts(updatedProducts);
+    function deleteOrder() {
+        setSelectedProducts([]);
     }
 
     const handleLogout = () => {
@@ -113,8 +111,12 @@ export function Home({ user, setUser }) {
             ))}
 
             <br></br>
+
+           
+
             <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
-            <section>
+            <section className="sectionOrder"> 
+
                 <h3> ORDEN </h3>
                 {selectedProducts.map((product, index) => (
                     <div key={index}>
