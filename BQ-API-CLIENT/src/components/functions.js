@@ -5,7 +5,8 @@ export async function login(email, password) {
         email,
         password
     });
-    //console.log(data)
+
+
     return data;
 };
 
@@ -16,7 +17,6 @@ export async function getProducts(token) {
         }
     });
     const products = response.data;
-    console.log(products)
     return products;
 };
 
@@ -38,6 +38,32 @@ export function filter(data, condition) {
     })
 }
 
+export async function createOrderApi(orderId, client, selectedProducts, status, dateEntry, dateProcessed, token) {
+    const response = await axios.post('http://localhost:8080/orders', {
+        orderId,
+        client,
+        selectedProducts,
+        status, 
+        dateEntry,
+        dateProcessed,
+    }, {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+    });
+    console.log("ESTE ES EL TOKEN", token);
+    return response.data;
+}
 
 
 
+
+/*id	integer($int64)
+Id
+
+client	[...]
+products	[...]
+status	[...]
+dateEntry	[...]
+dateProcessed	[...]
+*/
