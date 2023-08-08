@@ -117,7 +117,7 @@ export function Home({ user, setUser }) {
     
 
     const getTotalPrice = () => {
-        return selectedProducts.reduce((total, product) => total + product.price, 0);
+        return selectedProducts.reduce((total, item) => total + item.product.price * item.qty, 0);
 
     }
 
@@ -147,12 +147,12 @@ export function Home({ user, setUser }) {
             <section className="sectionOrder">
 
                 <h3> ORDEN </h3>
-                {selectedProducts.map((product, index) => (
+                {selectedProducts.map((item, index) => (
                     <div className="productOrder" key={index}>
-                        {product.qty} {product.name} ${product.price}
+                         {item.product.name} ${item.product.price}
                         <button>-</button>
-                        <p> {productQty} </p>
-                        <button>+</button>
+                        <p> {item.qty} </p>
+                        <button onClick={()=>{addProducts(item.product)}}>+</button>
                         <button className="deleteProductBtn" onClick={() => deleteProduct(index)}><img style={{ width: 20, height: 20 }} src={"../src/assets/img/trashcan.png"} alt="delete" /></button>
                     </div>
                 ))}

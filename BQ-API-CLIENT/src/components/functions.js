@@ -46,7 +46,7 @@ export async function createOrderApi(orderData, token) {
             Authorization: "Bearer " + token
         }
     });
-    console.log("ESTE ES EL TOKEN", token)
+    
     return response.data;
 }
 
