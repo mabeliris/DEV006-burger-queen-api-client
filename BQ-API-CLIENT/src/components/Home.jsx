@@ -16,7 +16,10 @@ export function Home({ user, setUser }) {
     const [filterType, setFilterType] = useState("Desayuno");
 
     const [selectedProducts, setSelectedProducts] = useState([]);
+
     const [order, setOrder] = useState([])
+
+    const [productQty, setproductQty] = useState([1])
 
     const [client, setClient] = useState("");
 
@@ -44,13 +47,13 @@ export function Home({ user, setUser }) {
 
     function handleCreateOrder() {
         const orderData = {
+
             client: client,
-            selectedProducts: selectedProducts,
-            status: "pendiente",
+            products: selectedProducts, //cambiar cómo se está formando qty (detalles)
+            status: "pending",
         };
-    
         console.log(orderData);
-    //corregir
+
         createOrderApi(orderData, user.token)
             .then((data) => {
                 setOrder(data);
@@ -59,8 +62,20 @@ export function Home({ user, setUser }) {
             .catch((error) => {
                 console.error("Error creating order:", error);
             });
-            
+
     }
+
+    // función addProduct
+    console.log(selectedProducts)
+     console.log(products)
+
+    const addQty = () => {
+        return products.reduce((total, product) => total + order.qty, 1);
+        setproductQty(addQty)        
+        }
+
+    
+
 
     function deleteProduct(index) {
         const updatedProducts = [...selectedProducts];
@@ -83,28 +98,42 @@ export function Home({ user, setUser }) {
     const filteredProducts = filterByProduct(products, filterType);
 
     const addProducts = (productToAdd) => {
-        setSelectedProducts([...selectedProducts, productToAdd]);
+        const updatedProducts = [...selectedProducts];
+        const existingProductIndex = updatedProducts.findIndex(
+            (item) => item.product.id === productToAdd.id
+        );
+    
+        if (existingProductIndex !== -1) {
+            // Si el producto ya existe en la orde, actualizar su cantidad.
+            updatedProducts[existingProductIndex].qty = updatedProducts[existingProductIndex].qty + 1;
+        } else {
+            // Si el producto no existe en la orden, crearlo.
+            updatedProducts.push({qty: 1, product: productToAdd});
+        }
+    
+        setSelectedProducts(updatedProducts);
     };
+    console.log(selectedProducts)
+    
 
     const getTotalPrice = () => {
         return selectedProducts.reduce((total, product) => total + product.price, 0);
 
     }
-        
 
     return (
         <div className="homeDiv">
             <button className="routeBtn">ADMIN</button>
             <button className="routeBtn">MESERX</button>
             <button className="routeBtn">CHEF</button>
-            <button  onClick={handleLogout}  ><img className="logoutBtn" src={"../src/assets/img/logout.png"} alt="delete" /></button>
+            <button onClick={handleLogout}  ><img className="logoutBtn" src={"../src/assets/img/logout.png"} alt="delete" /></button>
             <br></br>
             <button className="btnHome" onClick={handleFilterDesayuno}> DESAYUNO </button>
             <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
             <br></br>
 
             {filteredProducts.map((product) => (
-                <button className="btnOrder" onClick={() => addProducts({ name: product.name, price: product.price })} key={product.id}>
+                <button className="btnOrder" onClick={() => addProducts(product)} key={product.id}>
 
                     {product.name} ${product.price}
                 </button>
@@ -112,22 +141,26 @@ export function Home({ user, setUser }) {
 
             <br></br>
 
-           
+
 
             <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
-            <section className="sectionOrder"> 
+            <section className="sectionOrder">
 
                 <h3> ORDEN </h3>
                 {selectedProducts.map((product, index) => (
                     <div className="productOrder" key={index}>
-                        {product.name} ${product.price} <button className="deleteProductBtn" onClick={() => deleteProduct(index)}><img style={{ width: 20, height: 20 }} src={"../src/assets/img/trashcan.png"} alt="delete" /></button>
+                        {product.qty} {product.name} ${product.price}
+                        <button>-</button>
+                        <p> {productQty} </p>
+                        <button>+</button>
+                        <button className="deleteProductBtn" onClick={() => deleteProduct(index)}><img style={{ width: 20, height: 20 }} src={"../src/assets/img/trashcan.png"} alt="delete" /></button>
                     </div>
                 ))}
                 <h4 className="totalOrder">Total: ${getTotalPrice()}</h4>
                 <button className="deleteOrderBtn" onClick={deleteOrder}>ELIMINAR</button>
                 <button className="sendOrderBtn" onClick={handleCreateOrder}>ENVIAR</button>
             </section>
-            
+
 
         </div>
     );
