@@ -1,49 +1,45 @@
-
-
-body{
+body {
     background-color: #F1F4E2;
 }
 
-.routeBtn{
+.routeBtn {
     background-color: #E04D39;
     color: white;
     margin: 5px;
 }
 
-.logoutBtn{
+.logoutBtn {
     width: 20px;
     height: 20px;
     background-color: #F1F4E2;
 }
-.btnHome{
+
+.btnHome {
     color: white;
     background-color: black;
-    margin: 10px;     
+    margin: 10px;
 }
 
-.btnOrder{
+.btnOrder {
     background-color: #EDEAD2;
-    border:solid 1px black;
+    border: solid 1px black;
     border-radius: 5px;
     margin: 5px;
     display: grid;
     grid-template-columns: auto;
-    width: 300px; 
-    margin-left: 50px;   
+    width: 300px;
+    margin-left: 50px;
     max-height: 400px;
-    overflow-y: auto;
-    
-    
 }
 
-.inputName{
-   border: 1px solid black;
-   border-radius: 5px;
-   font-size: 20px;
-   margin-bottom: 20px;
-   text-align: center;
-   padding: 10px;
-    
+.inputName {
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+
 }
 
 .sectionOrder {
@@ -55,31 +51,87 @@ body{
     font-size: 20px;
     max-height: 300px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.productOrder{
-display: flex;
-justify-content: space-between;
-margin: 0 20px;
+.productOrder {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
 }
 
-.deleteProductBtn{
+.deleteProductBtn {
     background-color: #EDEAD2;
 }
-.deleteOrderBtn{
+
+.deleteOrderBtn {
     background-color: #817979;
-    color:white;
+    color: white;
     margin: 20px;
 }
-.sendOrderBtn{
+
+.sendOrderBtn {
     background-color: #E04D39;
     color: white;
 }
 
 .totalOrder {
-   background-color: black;
-   color: white; 
-   width: 150px;
-   margin: 0 200px;
-   border-radius: 5px;
+    background-color: black;
+    color: white;
+    width: 150px;
+    margin: 0 200px;
+    border-radius: 5px;
+}
+
+.decrease,
+.increase {
+    background-color: #EDEAD2;
+    width: 40px;
+    height: 60px;
+    margin: 5px;
+    padding: auto;
+}
+
+.itemQty {
+    background-color: white;
+    border: solid 1px;
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-height: 768px) {
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    html,
+    body {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+    }
+
+    .order {
+        display: grid;
+        grid-template-columns: 50%;
+    }
+
+    .orderList {
+        grid-column-start: 2;
+        grid-row-start: 1;
+        width: 600px;
+    }
+
+    .inputName {
+        display: flex;
+        align-items: center;
+    }
+
+    .sectionOrder {
+        max-height: 450px;
+    }
 }

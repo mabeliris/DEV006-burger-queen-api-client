@@ -19,8 +19,6 @@ export function Home({ user, setUser }) {
 
     const [order, setOrder] = useState([])
 
-    const [productQty, setproductQty] = useState([1])
-
     const [client, setClient] = useState("");
 
     const handleFilterDesayuno = () => {
@@ -46,18 +44,18 @@ export function Home({ user, setUser }) {
     }
 
     function handleCreateOrder() {
-        const orderData = {
+        const order = [{
 
             client: client,
             products: selectedProducts, //cambiar cómo se está formando qty (detalles)
             status: "pending",
-        };
-        console.log(orderData);
+        }];
+        console.log(order);
 
-        createOrderApi(orderData, user.token)
+        createOrderApi(order, user.token)
             .then((data) => {
                 setOrder(data);
-                console.log(orderData);
+                console.log(order);
             })
             .catch((error) => {
                 console.error("Error creating order:", error);
@@ -105,7 +103,7 @@ export function Home({ user, setUser }) {
         const existingProductIndex = updatedProducts.findIndex(
             (item) => item.product.id === updatedProducts[index].product.id
         );
-    
+
         if (existingProductIndex !== -1) {
             if (updatedProducts[existingProductIndex].qty > 0) {
                 updatedProducts[existingProductIndex].qty = updatedProducts[existingProductIndex].qty - 1;
@@ -125,46 +123,46 @@ export function Home({ user, setUser }) {
     return (
         <div className="homeDiv">
             <div className="routes">
-            <button className="routeBtn">ADMIN</button>
-            <button className="routeBtn">MESERX</button>
-            <button className="routeBtn">CHEF</button>
-            <button onClick={handleLogout}  ><img className="logoutBtn" src={"../src/assets/img/logout.png"} alt="delete" /></button>
+                <button className="routeBtn">ADMIN</button>
+                <button className="routeBtn">MESERX</button>
+                <button className="routeBtn">CHEF</button>
+                <button onClick={handleLogout}><img className="logoutBtn" src="../src/assets/img/logout.png" alt="delete" /></button>
             </div>
-            <br></br>
-            <div className="products">
-            <button className="btnHome" onClick={handleFilterDesayuno}> DESAYUNO </button>
-            <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
-            <br></br>
+            <br />
+            <div className="order">
+                <div className="products">
+                    <button className="btnHome" onClick={handleFilterDesayuno}> DESAYUNO </button>
+                    <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
+                    <br />
 
-            {filteredProducts.map((product) => (
-                <button className="btnOrder" onClick={() => addProducts(product)} key={product.id}>
-
-                    {product.name} ${product.price}
-                </button>
-            ))}
+                    {filteredProducts.map((product) => (
+                        <button className="btnOrder" onClick={() => addProducts(product)} key={product.id}>
+                            {product.name} ${product.price}
+                        </button>
+                    ))}
+                </div>
+                <br />
+                <div className="orderList">
+                    <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient}/>
+                    <section className="sectionOrder">
+                        <h3> ORDEN </h3>
+                        {selectedProducts.map((item, index) => (
+                            <section className="productOrder" key={index}>
+                                {item.product.name} ${item.product.price}
+                                <button className="decrease" onClick={() => removeProduct(index)}>-</button>
+                                <p className="itemQty"> {item.qty} </p>
+                                <button className="increase" onClick={() => addProducts(item.product)}>+</button>
+                                <button className="deleteProductBtn" onClick={() => deleteProduct(index)}>
+                                    <img style={{ width: 20, height: 20 }} src="../src/assets/img/trashcan.png" alt="delete" />
+                                </button>
+                            </section>
+                        ))}
+                        <h4 className="totalOrder">Total: ${getTotalPrice()}</h4>
+                        <button className="deleteOrderBtn" onClick={deleteOrder}>ELIMINAR</button>
+                        <button className="sendOrderBtn" onClick={handleCreateOrder}>ENVIAR</button>
+                    </section>
+                </div>
             </div>
-            <br></br>
-            <div className="Order">
-            <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
-            <section className="sectionOrder">
-
-                <h3> ORDEN </h3>
-                {selectedProducts.map((item, index) => (
-                    <div className="productOrder" key={index}>
-                        {item.product.name} ${item.product.price}
-                        <button onClick={() => { removeProduct(index)}}>-</button>
-                        <p> {item.qty} </p>
-                        <button onClick={() => { addProducts(item.product) }}>+</button>
-                        <button className="deleteProductBtn" onClick={() => deleteProduct(index)}><img style={{ width: 20, height: 20 }} src={"../src/assets/img/trashcan.png"} alt="delete" /></button>
-                    </div>
-                ))}
-                <h4 className="totalOrder">Total: ${getTotalPrice()}</h4>
-                <button className="deleteOrderBtn" onClick={deleteOrder}>ELIMINAR</button>
-                <button className="sendOrderBtn" onClick={handleCreateOrder}>ENVIAR</button>
-            </section>
-            </div>
-
-
         </div>
     );
-}
+}    

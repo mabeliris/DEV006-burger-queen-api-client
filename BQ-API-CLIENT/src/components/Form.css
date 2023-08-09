@@ -1,6 +1,11 @@
+
+.loginAll {
+    transform: scale(1.5)
+ }
+
 .formLogin {
- display: grid;
-grid-template-columns: auto;
+    display: grid;
+    grid-template-columns: auto;
 }
 
 .log-in-out {
@@ -8,8 +13,7 @@ grid-template-columns: auto;
     color: white;
 }
 
-.inputEmail{
+.inputEmail {
     margin: 5px;
     text-align: center;
 }
-
