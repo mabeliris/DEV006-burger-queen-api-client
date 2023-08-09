@@ -62,20 +62,7 @@ export function Home({ user, setUser }) {
             .catch((error) => {
                 console.error("Error creating order:", error);
             });
-
     }
-
-    // función addProduct
-    console.log(selectedProducts)
-     console.log(products)
-
-    const addQty = () => {
-        return products.reduce((total, product) => total + order.qty, 1);
-        setproductQty(addQty)        
-        }
-
-    
-
 
     function deleteProduct(index) {
         const updatedProducts = [...selectedProducts];
@@ -102,19 +89,33 @@ export function Home({ user, setUser }) {
         const existingProductIndex = updatedProducts.findIndex(
             (item) => item.product.id === productToAdd.id
         );
-    
+
         if (existingProductIndex !== -1) {
             // Si el producto ya existe en la orde, actualizar su cantidad.
             updatedProducts[existingProductIndex].qty = updatedProducts[existingProductIndex].qty + 1;
         } else {
             // Si el producto no existe en la orden, crearlo.
-            updatedProducts.push({qty: 1, product: productToAdd});
+            updatedProducts.push({ qty: 1, product: productToAdd });
         }
-    
         setSelectedProducts(updatedProducts);
     };
-    console.log(selectedProducts)
+
+    function removeProduct(index) {
+        const updatedProducts = [...selectedProducts];
+        const existingProductIndex = updatedProducts.findIndex(
+            (item) => item.product.id === updatedProducts[index].product.id
+        );
     
+        if (existingProductIndex !== -1) {
+            if (updatedProducts[existingProductIndex].qty > 0) {
+                updatedProducts[existingProductIndex].qty = updatedProducts[existingProductIndex].qty - 1;
+                if (updatedProducts[existingProductIndex].qty === 0) {
+                    updatedProducts.splice(existingProductIndex, 1);
+                }
+            }
+        }
+        setSelectedProducts(updatedProducts);
+    }
 
     const getTotalPrice = () => {
         return selectedProducts.reduce((total, item) => total + item.product.price * item.qty, 0);
@@ -123,11 +124,14 @@ export function Home({ user, setUser }) {
 
     return (
         <div className="homeDiv">
+            <div className="routes">
             <button className="routeBtn">ADMIN</button>
             <button className="routeBtn">MESERX</button>
             <button className="routeBtn">CHEF</button>
             <button onClick={handleLogout}  ><img className="logoutBtn" src={"../src/assets/img/logout.png"} alt="delete" /></button>
+            </div>
             <br></br>
+            <div className="products">
             <button className="btnHome" onClick={handleFilterDesayuno}> DESAYUNO </button>
             <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
             <br></br>
@@ -138,21 +142,19 @@ export function Home({ user, setUser }) {
                     {product.name} ${product.price}
                 </button>
             ))}
-
+            </div>
             <br></br>
-
-
-
+            <div className="Order">
             <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
             <section className="sectionOrder">
 
                 <h3> ORDEN </h3>
                 {selectedProducts.map((item, index) => (
                     <div className="productOrder" key={index}>
-                         {item.product.name} ${item.product.price}
-                        <button>-</button>
+                        {item.product.name} ${item.product.price}
+                        <button onClick={() => { removeProduct(index)}}>-</button>
                         <p> {item.qty} </p>
-                        <button onClick={()=>{addProducts(item.product)}}>+</button>
+                        <button onClick={() => { addProducts(item.product) }}>+</button>
                         <button className="deleteProductBtn" onClick={() => deleteProduct(index)}><img style={{ width: 20, height: 20 }} src={"../src/assets/img/trashcan.png"} alt="delete" /></button>
                     </div>
                 ))}
@@ -160,6 +162,7 @@ export function Home({ user, setUser }) {
                 <button className="deleteOrderBtn" onClick={deleteOrder}>ELIMINAR</button>
                 <button className="sendOrderBtn" onClick={handleCreateOrder}>ENVIAR</button>
             </section>
+            </div>
 
 
         </div>
