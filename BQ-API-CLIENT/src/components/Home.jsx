@@ -21,6 +21,7 @@ export function Home({ user, setUser }) {
 
     const [client, setClient] = useState("");
 
+    
     const handleFilterDesayuno = () => {
         setFilterType("Desayuno");
     };
