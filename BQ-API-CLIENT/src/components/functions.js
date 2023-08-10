@@ -39,9 +39,7 @@ export function filter(data, condition) {
 }
 
 export async function createOrderApi(orderData, token) {
-    const response = await axios.post('http://localhost:8080/orders', {
-        orderData,
-    }, {
+    const response = await axios.post('http://localhost:8080/orders', orderData,{
         headers: {
             Authorization: "Bearer " + token
         }
