@@ -15,6 +15,7 @@ export function Form({setUser}) {
 
         if(correo === "" || contraseña === "") {
             setError(true)
+            alert("Debe ingresar un usuario y contraseña")
             return
         }
         
@@ -29,6 +30,7 @@ export function Form({setUser}) {
         })
         .catch((err)=>{
             console.log(err)
+            alert("Correo o contraseña incorrectos")
         })
         
     }
@@ -57,7 +59,6 @@ export function Form({setUser}) {
             
                 <button className="log-in-out" >Iniciar sesión</button>
             </form>
-            {error && <p>ERROR: Revisa tu correo o contraseña</p>}
         </section>
     )
 }

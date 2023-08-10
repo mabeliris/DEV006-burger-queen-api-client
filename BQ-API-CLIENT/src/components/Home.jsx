@@ -21,7 +21,7 @@ export function Home({ user, setUser }) {
 
     const [client, setClient] = useState("");
 
-    
+
     const handleFilterDesayuno = () => {
         setFilterType("Desayuno");
     };
@@ -44,22 +44,31 @@ export function Home({ user, setUser }) {
         console.log(value);
     }
 
+    const fecha = new Date(); // crea un objeto Date con la fecha y hora actual
+    const cadena = fecha.toString(); // convierte el objeto Date en una cadena
+
     function handleCreateOrder() {
-        const order = [{
+        console.log(user)
+        const createOrder = {
 
             client: client,
-            products: selectedProducts, //cambiar cómo se está formando qty (detalles)
+            products: selectedProducts,
             status: "pending",
-        }];
-        console.log(order);
+            dateEntry: cadena,
+            userId: user.user.id,
+        };
+        console.log(createOrder);
 
-        createOrderApi(order, user.token)
+        createOrderApi(createOrder, user.token)
             .then((data) => {
                 setOrder(data);
-                console.log(order);
+                alert('Pedido enviado exitosamente!')
+                setSelectedProducts([]);
+
             })
             .catch((error) => {
                 console.error("Error creating order:", error);
+                alert('No se pudo crear la orden:', error);
             });
     }
 
@@ -90,7 +99,7 @@ export function Home({ user, setUser }) {
         );
 
         if (existingProductIndex !== -1) {
-            // Si el producto ya existe en la orde, actualizar su cantidad.
+            // Si el producto ya existe en la orden, actualizar su cantidad.
             updatedProducts[existingProductIndex].qty = updatedProducts[existingProductIndex].qty + 1;
         } else {
             // Si el producto no existe en la orden, crearlo.
@@ -118,15 +127,21 @@ export function Home({ user, setUser }) {
 
     const getTotalPrice = () => {
         return selectedProducts.reduce((total, item) => total + item.product.price * item.qty, 0);
+    }
 
+    function alertRoutes() {
+        alert("este sitio está en construcción :)")
     }
 
     return (
         <div className="homeDiv">
             <div className="routes">
-                <button className="routeBtn">ADMIN</button>
+            <div className="userEmail">
+          {user && <p className="welcomeMsg">Hola, {user.user.email}</p>}
+        </div>
+                <button className="routeBtn" onClick={alertRoutes}>ADMIN</button>
                 <button className="routeBtn">MESERX</button>
-                <button className="routeBtn">CHEF</button>
+                <button className="routeBtn" onClick={alertRoutes}>CHEF</button>
                 <button onClick={handleLogout}><img className="logoutBtn" src="../src/assets/img/logout.png" alt="delete" /></button>
             </div>
             <br />
@@ -144,7 +159,7 @@ export function Home({ user, setUser }) {
                 </div>
                 <br />
                 <div className="orderList">
-                    <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient}/>
+                    <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
                     <section className="sectionOrder">
                         <h3> ORDEN </h3>
                         {selectedProducts.map((item, index) => (
