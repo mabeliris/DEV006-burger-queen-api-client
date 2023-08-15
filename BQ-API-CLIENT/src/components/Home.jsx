@@ -41,20 +41,18 @@ export function Home({ user, setUser }) {
     function createClient(event) {
         const { value } = event.target;
         setClient(value);
-        console.log(value);
     }
 
-    const fecha = new Date(); // crea un objeto Date con la fecha y hora actual
-    const cadena = fecha.toString(); // convierte el objeto Date en una cadena
+    const date = new Date(); // crea un objeto Date con la fecha y hora actual
+    const chain = date.toString(); // convierte el objeto Date en una cadena
 
     function handleCreateOrder() {
-        console.log(user)
         const createOrder = {
 
             client: client,
             products: selectedProducts,
             status: "pending",
-            dateEntry: cadena,
+            dateEntry: chain,
             userId: user.user.id,
         };
         console.log(createOrder);
@@ -79,7 +77,8 @@ export function Home({ user, setUser }) {
     }
 
     function deleteOrder() {
-        setSelectedProducts([]);
+        setSelectedProducts([])
+        setClient([]);
     }
 
     const handleLogout = () => {
@@ -162,6 +161,7 @@ export function Home({ user, setUser }) {
                     <input className="inputName" type="text" name="cliente" placeholder="Nombre del cliente" value={client} onChange={createClient} />
                     <section className="sectionOrder">
                         <h3> ORDEN </h3>
+                        <div className="productList">
                         {selectedProducts.map((item, index) => (
                             <section className="productOrder" key={index}>
                                 {item.product.name} ${item.product.price}
@@ -173,6 +173,7 @@ export function Home({ user, setUser }) {
                                 </button>
                             </section>
                         ))}
+                        </div>
                         <h4 className="totalOrder">Total: ${getTotalPrice()}</h4>
                         <button className="deleteOrderBtn" onClick={deleteOrder}>ELIMINAR</button>
                         <button className="sendOrderBtn" onClick={handleCreateOrder}>ENVIAR</button>

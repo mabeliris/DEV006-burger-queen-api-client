@@ -5,8 +5,6 @@ export async function login(email, password) {
         email,
         password,
     });
-
-
     return data;
 };
 
@@ -27,17 +25,6 @@ export function filterByProduct(products, type) {
     return filteredProducts
 }
 
-
-export function filter(data, condition) {
-    const filteredProducts = filterByProduct(data, condition);
-    const cardsProducts = document.querySelector('.cards');
-    cardsProducts.innerHTML = '';
-    filteredProducts.forEach(product => {
-        const p = product;
-        console.log(product)
-    })
-}
-
 export async function createOrderApi(orderData, token) {
     const response = await axios.post('http://localhost:8080/orders', orderData,{
         headers: {
@@ -47,16 +34,3 @@ export async function createOrderApi(orderData, token) {
     
     return response.data;
 }
-
-
-
-
-/*id	integer($int64)
-Id
-
-client	[...]
-products	[...]
-status	[...]
-dateEntry	[...]
-dateProcessed	[...]
-*/
