@@ -48,27 +48,30 @@ export function Home({ user, setUser }) {
 
     function handleCreateOrder() {
         const createOrder = {
-
             client: client,
             products: selectedProducts,
             status: "pending",
             dateEntry: chain,
             userId: user.user.id,
         };
-        console.log(createOrder);
-
-        createOrderApi(createOrder, user.token)
-            .then((data) => {
-                setOrder(data);
-                alert('Pedido enviado exitosamente!')
-                setSelectedProducts([]);
-
-            })
-            .catch((error) => {
-                console.error("Error creating order:", error);
-                alert('No se pudo crear la orden:', error);
-            });
+    
+        // Mostrar mensaje de confirmación
+        const shouldCreateOrder = window.confirm("¿Deseas enviar la orden?");
+    
+        if (shouldCreateOrder) {
+            createOrderApi(createOrder, user.token)
+                .then((data) => {
+                    setOrder(data);
+                    alert('Pedido enviado exitosamente!')
+                    setSelectedProducts([]);
+                })
+                .catch((error) => {
+                    console.error("Error creating order:", error);
+                    alert('No se pudo crear la orden:', error);
+                });
+        }
     }
+    
 
     function deleteProduct(index) {
         const updatedProducts = [...selectedProducts];
@@ -77,9 +80,13 @@ export function Home({ user, setUser }) {
     }
 
     function deleteOrder() {
+        const shouldDeleteOrder = window.confirm("¿Deseas eliminar la orden?");
+    
+        if (shouldDeleteOrder) {
         setSelectedProducts([])
         setClient([]);
     }
+}
 
     const handleLogout = () => {
         setUser(null);
