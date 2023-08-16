@@ -22,9 +22,12 @@ export function Home({ user, setUser }) {
     const [client, setClient] = useState("");
 
 
+    // investigar: como hacer css in JS
+
     const handleFilterDesayuno = () => {
         setFilterType("Desayuno");
-    };
+        
+    }; // utilizarla para darle clase al botón
 
     const handleFilter = () => {
         setFilterType("Almuerzo");
@@ -54,16 +57,17 @@ export function Home({ user, setUser }) {
             dateEntry: chain,
             userId: user.user.id,
         };
-    
+
         // Mostrar mensaje de confirmación
         const shouldCreateOrder = window.confirm("¿Deseas enviar la orden?");
-    
+
         if (shouldCreateOrder) {
             createOrderApi(createOrder, user.token)
                 .then((data) => {
                     setOrder(data);
                     alert('Pedido enviado exitosamente!')
-                    setSelectedProducts([]);
+                    setSelectedProducts([])
+                        setClient([]);
                 })
                 .catch((error) => {
                     console.error("Error creating order:", error);
@@ -71,7 +75,7 @@ export function Home({ user, setUser }) {
                 });
         }
     }
-    
+
 
     function deleteProduct(index) {
         const updatedProducts = [...selectedProducts];
@@ -81,12 +85,12 @@ export function Home({ user, setUser }) {
 
     function deleteOrder() {
         const shouldDeleteOrder = window.confirm("¿Deseas eliminar la orden?");
-    
+
         if (shouldDeleteOrder) {
-        setSelectedProducts([])
-        setClient([]);
+            setSelectedProducts([])
+            setClient([]);
+        }
     }
-}
 
     const handleLogout = () => {
         setUser(null);
@@ -142,19 +146,19 @@ export function Home({ user, setUser }) {
     return (
         <div className="homeDiv">
             <div className="routes">
-            <div className="userEmail">
-          {user && <p className="welcomeMsg">Hola, {user.user.email}</p>}
-        </div>
+                <div className="userEmail">
+                    {user && <p className="welcomeMsg">Hola, {user.user.email}</p>}
+                </div>
                 <button className="routeBtn" onClick={alertRoutes}>ADMIN</button>
-                <button className="routeBtn">MESERX</button>
+                <button className="routeWaiter">MESERX</button>
                 <button className="routeBtn" onClick={alertRoutes}>CHEF</button>
                 <button onClick={handleLogout}><img className="logoutBtn" src="../src/assets/img/logout.png" alt="delete" /></button>
             </div>
             <br />
             <div className="order">
                 <div className="products">
-                    <button className="btnHome" onClick={handleFilterDesayuno}> DESAYUNO </button>
-                    <button className="btnHome" onClick={handleFilter}> ALMUERZO Y CENA</button>
+                    <button className={ "btnHome" + (filterType==="Desayuno"?" active":"") } onClick={handleFilterDesayuno}> DESAYUNO </button>
+                    <button className={ "btnHome" + (filterType==="Desayuno"?"":" active") }onClick={handleFilter}> ALMUERZO Y CENA</button>
                     <br />
 
                     {filteredProducts.map((product) => (
@@ -169,17 +173,17 @@ export function Home({ user, setUser }) {
                     <section className="sectionOrder">
                         <h3> ORDEN </h3>
                         <div className="productList">
-                        {selectedProducts.map((item, index) => (
-                            <section className="productOrder" key={index}>
-                                {item.product.name} ${item.product.price}
-                                <button className="decrease" onClick={() => removeProduct(index)}>-</button>
-                                <p className="itemQty"> {item.qty} </p>
-                                <button className="increase" onClick={() => addProducts(item.product)}>+</button>
-                                <button className="deleteProductBtn" onClick={() => deleteProduct(index)}>
-                                    <img style={{ width: 20, height: 20 }} src="../src/assets/img/trashcan.png" alt="delete" />
-                                </button>
-                            </section>
-                        ))}
+                            {selectedProducts.map((item, index) => (
+                                <section className="productOrder" key={index}>
+                                    {item.product.name} ${item.product.price}
+                                    <button className="decrease" onClick={() => removeProduct(index)}>-</button>
+                                    <p className="itemQty"> {item.qty} </p>
+                                    <button className="increase" onClick={() => addProducts(item.product)}>+</button>
+                                    <button className="deleteProductBtn" onClick={() => deleteProduct(index)}>
+                                        <img style={{ width: 20, height: 20 }} src="../src/assets/img/trashcan.png" alt="delete" />
+                                    </button>
+                                </section>
+                            ))}
                         </div>
                         <h4 className="totalOrder">Total: ${getTotalPrice()}</h4>
                         <button className="deleteOrderBtn" onClick={deleteOrder}>ELIMINAR</button>
