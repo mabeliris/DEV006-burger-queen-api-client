@@ -3,12 +3,15 @@ import { login } from "./functions.js";
 import "./Form.css"
 import { useState }  from "react";
 import bqlogo from '../assets/img/bqlogo.png'
+import { useNavigate } from "react-router-dom";
 
 
 export function Form({setUser}) {
     const [correo, setCorreo] = useState("grace.hopper@systers.xyz")
     const [contraseña, setContraseña] = useState("123456")
     const [error, setError] = useState(false)
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -27,6 +30,8 @@ export function Form({setUser}) {
             token: res.accessToken,
             user: res.user,
             })
+
+            navigate("/Home");
         })
         .catch((err)=>{
             console.log(err)

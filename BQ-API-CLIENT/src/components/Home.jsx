@@ -1,5 +1,6 @@
 
 import "./Home.css"
+import { Link } from 'react-router-dom';
 
 
 // useState: guardar una variable que puede cambiar de valor.
@@ -9,7 +10,7 @@ import { getProducts, filterByProduct, createOrderApi } from "./functions.js";
 import { useState, useEffect } from 'react';
 
 
-export function Home({ user, setUser }) {
+export function Home({ user, setUser}) {
 
     const [products, setProducts] = useState([]);
 
@@ -20,6 +21,8 @@ export function Home({ user, setUser }) {
     const [order, setOrder] = useState([])
 
     const [client, setClient] = useState("");
+
+    
 
 
     // investigar: como hacer css in JS
@@ -143,6 +146,8 @@ export function Home({ user, setUser }) {
         alert("este sitio está en construcción :)")
     }
 
+    
+
     return (
         <div className="homeDiv">
             <div className="routes">
@@ -151,8 +156,13 @@ export function Home({ user, setUser }) {
                 </div>
                 <button className="routeBtn" onClick={alertRoutes}>ADMIN</button>
                 <button className="routeWaiter">MESERX</button>
-                <button className="routeBtn" onClick={alertRoutes}>CHEF</button>
-                <button onClick={handleLogout}><img className="logoutBtn" src="../src/assets/img/logout.png" alt="delete" /></button>
+                <Link to="/Chef">
+                  <button className="routeBtn">CHEF</button>
+                </Link>
+                <Link to="/">
+                   <button onClick={handleLogout}><img className="logoutBtn" src="../src/assets/img/logout.png" alt="delete" /></button>
+                </Link>
+                
             </div>
             <br />
             <div className="order">
