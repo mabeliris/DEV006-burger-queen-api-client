@@ -2,17 +2,8 @@ body {
     background-color: #F1F4E2;
 }
 
-.routeBtn {
-    background-color: #E04D39;
-    color: white;
-    margin: 5px;
-}
 
-.routeWaiter {
-    background-color: #ee9083;
-    color: white;
-    margin: 5px;
-}
+
 
 .logoutBtn {
     width: 20px;
@@ -38,6 +29,7 @@ body {
 .btnOrder {
     background-color: #EDEAD2;
     border: solid 1px black;
+    color: black;
     border-radius: 5px;
     margin: 5px;
     display: grid;
@@ -104,6 +96,7 @@ body {
 .decrease,
 .increase {
     background-color: #EDEAD2;
+    color: black;
     width: 40px;
     height: 60px;
     margin: 5px;
