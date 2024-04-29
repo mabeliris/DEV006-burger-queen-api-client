@@ -1,6 +1,6 @@
 
 import "./Home.css"
-import { Link } from 'react-router-dom';
+import { Navbar } from "./Navbar.jsx";
 
 
 // useState: guardar una variable que puede cambiar de valor.
@@ -10,11 +10,18 @@ import { getProducts, filterByProduct, createOrderApi } from "./functions.js";
 import { useState, useEffect } from 'react';
 
 
-export function Home({ user, setUser}) {
+
+export function Home({ user, setOrders }) {
+
+    
+
+    
 
     const [products, setProducts] = useState([]);
 
     const [filterType, setFilterType] = useState("Desayuno");
+
+    const [activeSection, setActiveSection] = useState('meserx');
 
     const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -50,7 +57,19 @@ export function Home({ user, setUser}) {
     }
 
     const date = new Date(); // crea un objeto Date con la fecha y hora actual
-    const chain = date.toString(); // convierte el objeto Date en una cadena
+    
+    const [month, day, year] = [
+       date.getMonth(),
+       date.getDate(),
+       date.getFullYear(),
+    ];
+    const [hour, minutes, seconds] = [
+       date.getHours(),
+       date.getMinutes(),
+       date.getSeconds(),
+    ];
+
+    const chain = `${month + 1}/${day}/${year} ${hour}:${minutes}:${seconds}`
 
     function handleCreateOrder() {
         const createOrder = {
@@ -70,7 +89,11 @@ export function Home({ user, setUser}) {
                     setOrder(data);
                     alert('Pedido enviado exitosamente!')
                     setSelectedProducts([])
-                        setClient([]);
+                    console.log("esta", selectedProducts)
+                    setClient([]);
+                    setOrders((prevOrders) => [data, ...prevOrders])
+                    
+
                 })
                 .catch((error) => {
                     console.error("Error creating order:", error);
@@ -95,9 +118,7 @@ export function Home({ user, setUser}) {
         }
     }
 
-    const handleLogout = () => {
-        setUser(null);
-    };
+   
 
     useEffect(() => {
         createProducts();
@@ -146,6 +167,10 @@ export function Home({ user, setUser}) {
         alert("este sitio está en construcción :)")
     }
 
+    //const handleButtonClick = (buttonName) => {
+   //     setActiveSection(buttonName);
+   // };
+
     
 
     return (
@@ -154,14 +179,7 @@ export function Home({ user, setUser}) {
                 <div className="userEmail">
                     {user && <p className="welcomeMsg">Hola, {user.user.email}</p>}
                 </div>
-                <button className="routeBtn" onClick={alertRoutes}>ADMIN</button>
-                <button className="routeWaiter">MESERX</button>
-                <Link to="/Chef">
-                  <button className="routeBtn">CHEF</button>
-                </Link>
-                <Link to="/">
-                   <button onClick={handleLogout}><img className="logoutBtn" src="../src/assets/img/logout.png" alt="delete" /></button>
-                </Link>
+                <Navbar setActiveSection={setActiveSection} />
                 
             </div>
             <br />
