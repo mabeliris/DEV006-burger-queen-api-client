@@ -32,8 +32,7 @@ export function Home({ user, setOrders }) {
     
 
 
-    // investigar: como hacer css in JS
-
+    
     const handleFilterDesayuno = () => {
         setFilterType("Desayuno");
         
