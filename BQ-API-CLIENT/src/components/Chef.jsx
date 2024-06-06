@@ -5,6 +5,8 @@ import "./Chef.css"
  
 
 export function Chef ({ setUser, activeSection, setActiveSection, orders }) {
+
+  const [filterOrder, setFilterOrder] = useState("En proceso");
   // Lógica del componente aquí
   const handleLogout = () => {
         setUser(null);
@@ -28,8 +30,8 @@ export function Chef ({ setUser, activeSection, setActiveSection, orders }) {
       <Navbar handleLogout={handleLogout} handleButtonClick={handleButtonClick} activeSection={activeSection}/>
     </header>     
       <section className="filterChef">
-        <button className="buttonChef">En proceso</button>
-        <button className="buttonChef">Listos</button>
+        <button className={"buttonChef" + (filterType==="Desayuno"?" active":"") } onClick={handleFilterDesayuno}>En proceso</button>
+        <button className={"buttonChef" + (filterType==="Desayuno"?" active":"") } onClick={handleFilterDesayuno}>Listos</button>
       </section>     
     
       <section>
@@ -48,6 +50,22 @@ export function Chef ({ setUser, activeSection, setActiveSection, orders }) {
               <button className="sendOrderBtn" >Enviar</button>
               
            </div>
+          ))}
+
+        {orders.map((chefOrder, index) => (
+           <div key={index} className="orderItem">
+                <p>ID de usuario: {chefOrder.userId}</p>
+                <p>Cliente: {chefOrder.client}</p>
+                
+              <ul >
+               {chefOrder.products.map((product, prodIndex) => (
+                 <li key={prodIndex}> {product.product.name} Cantidad: {product.qty} </li>
+                ))}
+              </ul>
+              <p>Estado: {chefOrder.status}</p>
+              <p>Fecha de entrada: {chefOrder.dateEntry}</p>
+              <button className="sendOrderBtn" >Enviar</button>
+            </div>
           ))}
         
                   
