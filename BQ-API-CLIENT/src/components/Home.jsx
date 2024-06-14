@@ -3,6 +3,7 @@ import "./Home.css"
 import { Navbar } from "./Navbar.jsx";
 
 
+
 // useState: guardar una variable que puede cambiar de valor.
 // useEffect: controlar cuando se ejecutan algun efecto secundario
 
