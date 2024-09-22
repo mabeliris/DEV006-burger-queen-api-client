@@ -43,7 +43,7 @@ export function Form({setUser}) {
     return (
         <section className="loginAll">
             <div className="imgDivLogo">
-                <img style={{ width: 200, height: 200 }} src={bqlogo} alt="BQ-logo" className="logo" />
+                <img style={{ width: 200, height: 200, marginTop:180}} src={bqlogo} alt="BQ-logo" className="logo" />
             </div>           
             
             <form 
